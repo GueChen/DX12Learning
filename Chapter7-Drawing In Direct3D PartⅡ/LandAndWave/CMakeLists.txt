@@ -1,0 +1,19 @@
+set(CMAKE_WIN32_EXECUTABLE ON)
+
+set(TARGET_NAME LandAndWave)
+
+file(GLOB_RECURSE HEADER_FILES "*.h" "*.hpp")
+file(GLOB_RECURSE SOURCE_FILES "*.c" "*.cpp")
+
+add_executable(${TARGET_NAME} ${HEADER_FILES} ${SOURCE_FILES})
+
+set_target_properties(${TARGET_NAME} PROPERTIES 
+	LINKER_LANGUAGE CXX
+	CXX_STANDARD 20
+)
+
+add_custom_command(TARGET ${TARGET_NAME} POST_BUILD 		
+		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/Shaders" "$<TARGET_FILE_DIR:${TARGET_NAME}>/Shaders"
+)
+
+target_link_libraries(${TARGET_NAME} PRIVATE D3D12Util)

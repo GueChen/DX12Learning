@@ -8,7 +8,7 @@ set_target_properties(ShapesApp PROPERTIES
 )
 
 add_custom_command(TARGET ShapesApp POST_BUILD 		
-		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/Shaders" "$<TARGET_FILE_DIR:ShapesApp>/Shaders"
+	COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/Shaders" "$<TARGET_FILE_DIR:ShapesApp>/Shaders"
 )
 
 target_link_libraries(ShapesApp PRIVATE D3D12Util)
