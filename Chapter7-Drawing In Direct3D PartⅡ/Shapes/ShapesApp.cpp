@@ -9,6 +9,9 @@
 #include "GeometryGenerator.h"
 #include "FrameResource.h"
 
+#define WIDEN_HELPER(x) L ## x
+#define WIDEN(x) WIDEN_HELPER(x)
+
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
@@ -524,8 +527,10 @@ void ShapesApp::BuildRootSignature()
 
 void ShapesApp::BuildShadersAndInputLayout()
 {
-	mShaders["standardVS"] = d3dUtil::CompileShader(L"Shaders\\color.hlsl", nullptr, "VS", "vs_5_1");
-	mShaders["opaquePS"] = d3dUtil::CompileShader(L"Shaders\\color.hlsl", nullptr, "PS", "ps_5_1");
+	mShaders["standardVS"] = d3dUtil::LoadBinary(WIDEN(SHADER_VS_BIN));
+	//d3dUtil::CompileShader(L"Shaders\\color.hlsl", nullptr, "VS", "vs_5_1");
+	mShaders["opaquePS"] = d3dUtil::LoadBinary(WIDEN(SHADER_PS_BIN));
+	//d3dUtil::CompileShader(L"Shaders\\color.hlsl", nullptr, "PS", "ps_5_1");
 
 	mInputLayout =
 	{
